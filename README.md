@@ -39,6 +39,7 @@ El servidor se ejecutará en **http://localhost:3000**.
 
 La estructura del proyecto separa la lógica de negocio, las utilidades de datos, las rutas del servidor y la interfaz de usuario.
 
+```
 .
 ├── classes/
 │   ├── Contacto.js           \# Clase Modelo para un contacto.
@@ -65,6 +66,7 @@ La estructura del proyecto separa la lógica de negocio, las utilidades de datos
 ├── server.js                 \# Configuración de Express, motor de vistas y rutas (API REST).
 ├── contactos.json            \# Archivo de persistencia de datos.
 └── package.json              \# Configuración del proyecto y dependencias.
+```
 
 ---
 
