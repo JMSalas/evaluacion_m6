@@ -1,0 +1,5 @@
+{{#if pageScripts}}
+    {{#each pageScripts}}
+    <script type="module" src="/js/{{this}}.js" defer></script>
+    {{/each}}
+{{/if}}

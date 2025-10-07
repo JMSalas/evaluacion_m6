@@ -1,0 +1,92 @@
+ <main class="container-xxl">
+    <section class="w-100 border rounded-5 text-center p-5 shadow-lg bg-light my-4">
+        <h2><i class="bi bi-plus-lg"></i> Agregar Contacto</h2>
+        <hr>
+        <form id="formAgregarContacto" action="/task" method="post" class="w-100 mx-auto">
+            <div class="input-group mb-3">
+                <input id="nombreInput" type="text" class="form-control" placeholder="Nombre Completo" required>
+                <input id="telefonoInput" type="text" class="form-control" placeholder="Teléfono" min="0" required>
+                <input id="correoInput" type="text" class="form-control" placeholder="Correo Electrónico" min="0" required>
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-plus-lg"></i></button>
+            </div>
+        </form>    
+    </section>
+
+    <section class="w-100 border rounded-5 text-center p-5 shadow-lg bg-light my-4">
+        <h2><i class="bi bi-people-fill text-danger"></i> Agenda de Contactos</h2>
+        <hr>
+        <table class="table table-striped {{#unless contactos.length }}d-none{{/unless}}" >
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each contactos}}
+                <tr>
+                    <th>{{ this.id }}</th>
+                    <td data-contacto-nombre>{{ this.nombre }}</td>
+                    <td data-contacto-telefono>{{ this.telefono }}</td>
+                    <td data-contacto-correo>{{ this.correo }}</td>
+                    <td class="smallColumn">
+                        <div class="d-flex justify-content-evenly">
+                            <button class="btn btn-outline-dark" data-id="{{ this.id }}" data-bs-toggle="modal" data-bs-target="#actualizarContacto"><i class="bi bi-pencil-square"></i> Editar</button>
+                            <button class="btn btn-outline-danger" data-id="{{ this.id }}" data-button="delete"><i class="bi bi-trash3-fill"></i> Eliminar</button>     
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div id='emptyAlert' class="alert alert-warning fs-3 text-center {{#if contactos.length }}d-none{{/if}}" role="alert" >
+            <i class="bi bi-exclamation-triangle"></i> Agenda vacía, por favor agrega nuevos contactos.
+        </div>
+    </section>
+ </main>
+
+ <!-- Modal -->
+<div class="modal fade" id="actualizarContacto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Contacto ID: <span id="spanId"></span></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="formActualizarContacto">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nuevoNombreInput" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nuevoNombreInput" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevoTelefonoInput" class="form-label">Telefono:</label>
+                        <input type="text" class="form-control" id="nuevoTelefonoInput" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevoCorreoInput" class="form-label">Correo Electrónico:</label>
+                        <input type="text" class="form-control" id="nuevoCorreoInput" min="1" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="updateButton" type="submit" class="btn btn-danger">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="toastError" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Error del Servidor</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastErrorMessage">
+            </div>
+    </div>
+</div>
